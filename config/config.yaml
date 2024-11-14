@@ -1,0 +1,11 @@
+artifact_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/dataingestion
+  source_URL: "https://raw.githubusercontent.com/VigneshwarKandhaiya1207/datasets/refs/heads/main/Insurance_data.csv"
+  local_directory_file: artifacts/dataingestion/insurance_data.csv
+
+data_validation:
+  root_dir: artifacts/datavalidation
+  source_data_location: artifacts/dataingestion/insurance_data.csv
+  status_file: artifacts/datavalidation/status.txt

@@ -1,0 +1,100 @@
+COLUMNS:
+  policy_id: object
+  policy_tenure: float64
+  age_of_car: float64
+  age_of_policyholder: float64
+  area_cluster: object
+  population_density: int64
+  make: int64
+  segment: object
+  model: object
+  fuel_type: object
+  max_torque: object
+  max_power: object
+  engine_type: object
+  airbags: int64
+  is_esc: object 
+  is_adjustable_steering: object
+  is_tpms: object
+  is_parking_sensors: object
+  is_parking_camera: object
+  rear_brakes_type: object
+  displacement: int64
+  cylinder: int64
+  transmission_type: object
+  gear_box: int64
+  steering_type: object
+  turning_radius: float64
+  length: int64
+  width: int64
+  height: int64
+  gross_weight: int64
+  is_front_fog_lights: object
+  is_rear_window_wiper: object
+  is_rear_window_washer: object
+  is_rear_window_defogger: object
+  is_brake_assist: object
+  is_power_door_locks: object
+  is_central_locking: object
+  is_power_steering: object
+  is_driver_seat_height_adjustable: object
+  is_day_night_rear_view_mirror: object
+  is_ecw: object
+  is_speed_alert: object
+  ncap_rating: int64
+  is_claim: int64
+
+TARGET_COLUMN:
+  - is_claim
+
+NUMERICAL_COLUMNS:
+  - policy_tenure
+  - age_of_car
+  - age_of_policyholder
+  - population_density
+  - displacement
+  - turning_radius
+  - length
+  - width
+  - height
+  - gross_weight
+
+ONE_HOT_ENCODING:
+  - area_cluster
+  - segment
+  - model
+  - fuel_type
+  - max_torque
+  - max_power
+  - steering_type
+
+LABEL_ENCODING:
+  - is_esc
+  - is_adjustable_steering
+  - is_parking_sensors
+  - is_front_fog_lights
+  - is_rear_window_wiper
+  - is_rear_window_washer
+  - is_rear_window_defogger
+  - is_brake_assist
+  - is_power_door_locks
+  - is_central_locking
+  - is_driver_seat_height_adjustable
+  - is_day_night_rear_view_mirror
+  - is_ecw
+  - cylinder
+
+ORDINAL_ENCODING:
+  - ncap_rating
+  - airbags
+
+COLUMNS_TO_BE_DROPPED:
+  - engine_type
+  - is_tpms
+  - is_parking_camera
+  - rear_brakes_type
+  - transmission_type
+  - is_power_steering
+  - is_speed_alert
+  - make
+  - gear_box
