@@ -13,3 +13,8 @@ class DataValidationConfig:
     source_data_location: Path
     status_file: str
     all_schema: dict
+
+@dataclass
+class DataTransformationConfig:
+    root_dir: Path
+    source_data_location: Path

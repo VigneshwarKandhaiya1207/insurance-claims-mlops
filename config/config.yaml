@@ -9,3 +9,9 @@ data_validation:
   root_dir: artifacts/datavalidation
   source_data_location: artifacts/dataingestion/insurance_data.csv
   status_file: artifacts/datavalidation/status.txt
+
+data_transformation:
+  root_dir: artifacts/datatransformation
+  source_data_location: artifacts/dataingestion/insurance_data.csv
+
+  

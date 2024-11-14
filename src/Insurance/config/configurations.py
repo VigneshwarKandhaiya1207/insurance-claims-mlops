@@ -1,6 +1,6 @@
 from src.Insurance.constants import *
 from src.Insurance.utils.utils import create_directories,read_yaml
-from src.Insurance.entity.config_entity import DataIngestionConfig,DataValidationConfig
+from src.Insurance.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig
 from logger import logger
 
 
@@ -39,4 +39,15 @@ class ConfigurationManager:
         )
 
         return data_validation_config
+    
+    def get_data_transformation_config(self)-> DataTransformationConfig:
+        config=self.config.data_transformation
 
+        create_directories([config.root_dir])
+
+        data_transformation_config=DataTransformationConfig(
+            root_dir=config.root_dir,
+            source_data_location=config.source_data_location
+        )
+
+        return data_transformation_config
