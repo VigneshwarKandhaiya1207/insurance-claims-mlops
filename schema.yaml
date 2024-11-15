@@ -89,6 +89,7 @@ ORDINAL_ENCODING:
   - airbags
 
 COLUMNS_TO_BE_DROPPED:
+  - policy_id
   - engine_type
   - is_tpms
   - is_parking_camera

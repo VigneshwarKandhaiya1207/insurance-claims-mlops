@@ -22,5 +22,5 @@ class DataTransformation:
         logger.info("Train test split completed.")
         logger.info(train.shape)
         logger.info(test.shape)
-
+        print(train.head())
 

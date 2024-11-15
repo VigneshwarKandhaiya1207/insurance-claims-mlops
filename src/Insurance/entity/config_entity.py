@@ -18,3 +18,16 @@ class DataValidationConfig:
 class DataTransformationConfig:
     root_dir: Path
     source_data_location: Path
+
+@dataclass
+class ModelTrainerConfig:
+    root_dir: Path
+    train_data_path: Path
+    test_data_path: Path
+    model_name: str
+    numerical_features: list
+    one_hot_encoding: list
+    label_encoding: list
+    ordinal_encoding: list
+    columns_to_be_dropped: list
+    target_column: list

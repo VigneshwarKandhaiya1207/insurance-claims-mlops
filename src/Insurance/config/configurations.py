@@ -1,6 +1,6 @@
 from src.Insurance.constants import *
 from src.Insurance.utils.utils import create_directories,read_yaml
-from src.Insurance.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig
+from src.Insurance.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig,ModelTrainerConfig
 from logger import logger
 
 
@@ -51,3 +51,27 @@ class ConfigurationManager:
         )
 
         return data_transformation_config
+    
+    def get_model_trainer_config(self)-> ModelTrainerConfig:
+        config=self.config.model_trainer
+        
+        create_directories([config.root_dir])
+
+        model_trainer_config=ModelTrainerConfig(
+            root_dir=config.root_dir,
+            train_data_path=config.train_data_path,
+            test_data_path=config.test_data_path,
+            model_name=config.model_name,
+            numerical_features=self.schema.NUMERICAL_COLUMNS,
+            one_hot_encoding=self.schema.ONE_HOT_ENCODING,
+            label_encoding=self.schema.LABEL_ENCODING,
+            ordinal_encoding=self.schema.ORDINAL_ENCODING,
+            columns_to_be_dropped=self.schema.COLUMNS_TO_BE_DROPPED,
+            target_column=self.schema.TARGET_COLUMN
+        )
+
+        return model_trainer_config
+
+if __name__=="__main__":
+    obj=ConfigurationManager()
+    obj.get_model_trainer_config()
