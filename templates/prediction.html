@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .form-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-container input, .form-container select, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container button {
+            background-color: #27ae60;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #2ecc71;
+        }
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Prediction Form</h1>
+
+    <form action="/predict" method="POST">
+        <div class="form-container">
+
+            <label for="policy_tenure">Policy Tenure:</label>
+            <input type="number" step="any" id="policy_tenure" name="policy_tenure" step="0.01" required>
+
+            <label for="age_of_car">Age of Car:</label>
+            <input type="number" step="any" id="age_of_car" name="age_of_car" step="0.01" required>
+
+            <label for="age_of_policyholder">Age of Policyholder:</label>
+            <input type="number" step="any" id="age_of_policyholder" name="age_of_policyholder" step="0.01" required>
+
+            <label for="population_density">Population Density:</label>
+            <input type="number" id="population_density" name="population_density" required>
+
+            <label for="displacement">Displacement:</label>
+            <input type="number" id="displacement" name="displacement" required>
+
+            <label for="turning_radius">Turning Radius:</label>
+            <input type="number" id="turning_radius" name="turning_radius" step="0.01" required>
+
+            <label for="length">Length:</label>
+            <input type="number" id="length" name="length" required>
+
+            <label for="width">Width:</label>
+            <input type="number" id="width" name="width" required>
+
+            <label for="height">Height:</label>
+            <input type="number" id="height" name="height" required>
+            
+            <label for="gross_weight">Gross Weight:</label>
+            <input type="number" id="gross_weight" name="gross_weight" required>
+
+            <label for="area_cluster">Area Cluster:</label>
+            <select  id="area_cluster" name="area_cluster" required>
+                <option value="C1">C1</option>
+                <option value="C2">C2</option>
+                <option value="C3">C3</option>
+                <option value="C4">C4</option>
+                <option value="C5">C5</option>
+                <option value="C6">C6</option>
+                <option value="C7">C7</option>
+                <option value="C8">C8</option>
+                <option value="C9">C9</option>
+                <option value="C10">C10</option>
+                <option value="C11">C11</option>
+                <option value="C12">C12</option>
+                <option value="C13">C13</option>
+                <option value="C14">C14</option>
+                <option value="C15">C15</option>
+                <option value="C16">C16</option>
+                <option value="C17">C17</option>
+                <option value="C18">C18</option>
+                <option value="C19">C19</option>
+                <option value="C20">C20</option>
+                <option value="C21">C21</option>
+                <option value="C22">C22</option>
+            </select>
+
+            <label for="segment">Segment:</label>
+            <select  id="segment" name="segment" required>
+                <option value="A">A</option>
+                <option value="C1">C1</option>
+                <option value="C2">C2</option>
+                <option value="B2">B2</option>
+                <option value="B1">B1</option>
+                <option value="utility">UTILITY</option>
+            </select>
+
+            <label for="model">Model:</label>
+            <select  id="model" name="model" required>
+                <option value="M1">M1</option>
+                <option value="M2">M2</option>
+                <option value="M3">M3</option>
+                <option value="M4">M4</option>
+                <option value="M5">M5</option>
+                <option value="M6">M6</option>
+                <option value="M7">M7</option>
+                <option value="M8">M8</option>
+                <option value="M9">M9</option>
+                <option value="M10">M10</option>
+                <option value="M11">M11</option>
+            </select>
+        
+
+            <label for="fuel_type">Fuel Type:</label>
+            <select  id="fuel_type" name="fuel_type" required>
+                <option value="CNG">CNG</option>
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+            </select>
+
+
+            <label for="max_torque">Max Torque:</label>
+            <select id="max_torque" name="max_torque" required>
+                <option value="60Nm@3500rpm">60Nm@3500rpm</option>
+                <option value="113Nm@4400rpm">113Nm@4400rpm</option>
+                <option value="91Nm@4250rpm">91Nm@4250rpm</option>
+                <option value="250Nm@2750rpm">250Nm@2750rpm</option>
+                <option value="200Nm@3000rpm">200Nm@3000rpm</option>
+                <option value="82.1Nm@3400rpm">82.1Nm@3400rpm</option>
+                <option value="200Nm@1750rpm">200Nm@1750rpm</option>
+                <option value="85Nm@3000rpm">85Nm@3000rpm</option>
+                <option value="170Nm@4000rpm">170Nm@4000rpm</option>
+            </select>
+
+
+            <label for="max_power">Max Power:</label>
+            <select id="max_power" name="max_power" required>
+                <option value="40.36bhp@6000rpm">40.36bhp@6000rpm</option>
+                <option value="88.50bhp@6000rpm">88.50bhp@6000rpm</option>
+                <option value="67.06bhp@5500rpm">67.06bhp@5500rpm</option>
+                <option value="113.45bhp@4000rpm">113.45bhp@4000rpm</option>
+                <option value="88.77bhp@4000rpm">88.77bhp@4000rpm</option>
+                <option value="55.92bhp@5300rpm">55.92bhp@5300rpm</option>
+                <option value="97.89bhp@3600rpm">97.89bhp@3600rpm</option>
+                <option value="61.68bhp@6000rpm">61.68bhp@6000rpm</option>
+                <option value="118.36bhp@5500rpm">118.36bhp@5500rpm</option>
+            </select>
+
+            <label for="steering_type">Steering Type:</label>
+            <select  id="steering_type" name="steering_type" required>
+                <option value="Power">Power</option>
+                <option value="Electric">Electric</option>
+                <option value="Manual">Manual</option>
+            </select>
+
+            <label for="is_esc">Is ESC (Yes/No):</label>
+            <select id="is_esc" name="is_esc" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="is_adjustable_steering">Is Adjustable Steering (Yes/No):</label>
+            <select id="is_adjustable_steering" name="is_adjustable_steering" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="is_parking_sensors">Is Parking Sensors (Yes/No):</label>
+            <select  id="is_parking_sensors" name="is_parking_sensors" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="is_front_fog_lights">Is Front Fog Lights (Yes/No):</label>
+            <select id="is_front_fog_lights" name="is_front_fog_lights" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+
+            <label for="is_rear_window_wiper">Is Rear Window Wiper (Yes/No):</label>
+            <select id="is_rear_window_wiper" name="is_rear_window_wiper" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+
+            <label for="is_rear_window_washer">Is Rear Window Washer (Yes/No):</label>
+            <select id="is_rear_window_washer" name="is_rear_window_washer" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            
+            <label for="is_rear_window_defogger">Is Rear Window Defogger (Yes/No):</label>
+            <select id="is_rear_window_defogger" name="is_rear_window_defogger" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="is_brake_assist">Is Brake Assist (Yes/No):</label>
+            <select id="is_brake_assist" name="is_brake_assist" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+
+            <label for="is_power_door_locks">Is Power Door locks (Yes/No):</label>
+            <select id="is_power_door_locks" name="is_power_door_locks" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="is_central_locking">Is Central Locking (Yes/No):</label>
+            <select id="is_central_locking" name="is_central_locking" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="is_driver_seat_height_adjustable">Is Driver Seat height adjustable (Yes/No):</label>
+            <select id="is_driver_seat_height_adjustable" name="is_driver_seat_height_adjustable" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="is_day_night_rear_view_mirror">Is Day Night Rear View Mirror (Yes/No):</label>
+            <select id="is_day_night_rear_view_mirror" name="is_day_night_rear_view_mirror" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="is_ecw">Is ECW (Yes/No):</label>
+            <select type="text" id="is_ecw" name="is_ecw" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="cylinder">Cylinder:</label>
+            <select id="cylinder" name="cylinder" required>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+
+            <label for="ncap_rating">NCAP Rating:</label>
+            <select id="ncap_rating" name="ncap_rating" required>
+                <option value="0">0</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+
+            <label for="airbags">Airbags:</label>
+            <select id="airbags" name="airbags" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="6">6</option>
+            </select>
+
+
+            <button type="submit">Submit Prediction</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -8,3 +8,5 @@ mlflow
 DVC
 ensure
 imblearn
+python-dotenv
+flask

@@ -18,8 +18,13 @@ model_trainer:
   root_dir: artifacts/modeltrainer
   train_data_path: artifacts/datatransformation/train.csv
   test_data_path: artifacts/datatransformation/test.csv
-  model_name: final_model.pkl
+  model_name: final_model.joblib
 
+model_evaluation:
+  root_dir: artifacts/modelevaluation
+  test_data_path: artifacts/datatransformation/test.csv
+  model_name: artifacts/modeltrainer/final_model.joblib
+  metrics_file: artifacts/modelevaluation/metrics.json
 
 
   

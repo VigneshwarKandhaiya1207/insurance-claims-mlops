@@ -1,6 +1,7 @@
 import os
 import sys
 import  yaml
+import json
 from pathlib import Path
 from box import ConfigBox
 from box.exceptions import BoxValueError
@@ -49,3 +50,17 @@ def create_directories(path_list: list, verbose=True):
     except Exception as e:
         logger.exception(e)
         raise e
+    
+
+@ensure_annotations
+def save_json(path: Path, data: dict):
+    """save json data
+
+    Args:
+        path (Path): path to json file
+        data (dict): data to be saved in json file
+    """
+    with open(path, "w") as f:
+        json.dump(data, f, indent=4)
+
+    logger.info(f"json file saved at: {path}")

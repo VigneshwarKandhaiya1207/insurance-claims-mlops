@@ -24,10 +24,19 @@ class ModelTrainerConfig:
     root_dir: Path
     train_data_path: Path
     test_data_path: Path
-    model_name: str
+    model_name: Path
     numerical_features: list
     one_hot_encoding: list
     label_encoding: list
     ordinal_encoding: list
     columns_to_be_dropped: list
     target_column: list
+
+@dataclass
+class ModelEvaluationConfig:
+    root_dir: Path
+    test_data_path: Path
+    model_name: Path
+    metrics_file: str
+    target_column: list
+    columns_to_be_dropped: list

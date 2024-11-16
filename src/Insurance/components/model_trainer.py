@@ -3,6 +3,7 @@ import numpy as np
 import os
 import joblib
 import mlflow
+from dotenv import load_dotenv
 from logger import logger
 from src.Insurance.entity.config_entity import ModelTrainerConfig
 from sklearn.model_selection import train_test_split
@@ -22,9 +23,17 @@ from sklearn.ensemble import RandomForestClassifier,VotingClassifier,StackingCla
 from sklearn.metrics import classification_report,f1_score,precision_score,recall_score,ConfusionMatrixDisplay
 
 
-os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/vigneshwar_kandhaiya/insurance-claims-mlops.mlflow"
-os.environ["MLFLOW_TRACKING_USERNAME"]="vigneshwar_kandhaiya"
-os.environ["MLFLOW_TRACKING_PASSWORD"]="5e52108ecd9bdea4007d036d3ccefc4af246697e"
+# os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/vigneshwar_kandhaiya/insurance-claims-mlops.mlflow"
+# os.environ["MLFLOW_TRACKING_USERNAME"]="vigneshwar_kandhaiya"
+# os.environ["MLFLOW_TRACKING_PASSWORD"]="5e52108ecd9bdea4007d036d3ccefc4af246697e"
+load_dotenv()
+# tracking_uri = os.getenv('MLFLOW_TRACKING_URI')
+# if tracking_uri:
+#     mlflow.set_tracking_uri(tracking_uri)
+#     print(f"MLflow tracking URI set to: {tracking_uri}")
+# else:
+#     print("MLflow tracking URI not found in .env file.")
+
 
 class ModelTrainer:
     def __init__(self,config=ModelTrainerConfig):
@@ -42,7 +51,7 @@ class ModelTrainer:
 
         categorical_onehot_pipeline=SklearnPipeline(steps=[
             ("impute_na",SimpleImputer(strategy="most_frequent")),
-            ("ohe_encoding",OneHotEncoder())
+            ("ohe_encoding",OneHotEncoder(handle_unknown='ignore'))
         ])
 
         categorical_label_pipeline=SklearnPipeline(steps=[
@@ -66,9 +75,10 @@ class ModelTrainer:
 
         if smote_type == 'SMOTEENN': 
             smote = SMOTEENN() 
-        else:
+        elif smote_type == 'SMOTETomek':
             smote = SMOTETomek()
-        # smote = SMOTE()
+        else:
+            smote = SMOTE()
 
         pipeline = ImblearnPipeline(
             steps=[
@@ -103,6 +113,7 @@ class ModelTrainer:
                 y_train_pred = pipeline.predict(X_train)
                 y_valid_pred = pipeline.predict(X_valid)
                 best_params = None
+                best_model = pipeline
 
             train_f1_score=f1_score(y_train,y_train_pred)
             train_precision_score=precision_score(y_train,y_train_pred)
@@ -123,7 +134,10 @@ class ModelTrainer:
             print("Train Classification Report:\n", classification_report(y_train,y_train_pred))
             print("Validation Classification Report:\n", classification_report(y_valid,y_valid_pred))
 
-        return {'best_params': best_params,
+        #joblib.dump(pipeline, os.path.join(self.config.root_dir, self.config.model_name))
+        return {
+                'best_model': best_model,
+                'best_params': best_params,
                 'train_f1_score': train_f1_score,
                 'train_precision_score' : train_precision_score,
                 'train_recall_score':train_recall_score,
@@ -175,23 +189,26 @@ class ModelTrainer:
         model_performance_report={}
         models_to_evaluate={
             'logistic_regression': LogisticRegression(),
-            'random_Forest': RandomForestClassifier(),
-            'gradient_Boosting': GradientBoostingClassifier(),
-            'ada_Boost' : AdaBoostClassifier()
+            # 'random_Forest': RandomForestClassifier(),
+            # 'gradient_Boosting': GradientBoostingClassifier(),
+            # 'ada_Boost' : AdaBoostClassifier()
         }
 
 
         for model_name,model_instance in models_to_evaluate.items():
             param_grid = param_grids.get(model_name, None)
-            model_performance_report[model_name]=self.evaluate_models(X_train,X_valid,y_train,y_valid,model_name,model_instance,param_grid=param_grid,smote_type="SMOTETomek")
+            model_performance_report[model_name]=self.evaluate_models(X_train,X_valid,y_train,y_valid,model_name,model_instance,param_grid=None,smote_type="SMOTETomek")
 
         best_model_name = max(model_performance_report, key=lambda x: model_performance_report[x]['test_f1_score'])
 
         best_model_metrics = model_performance_report[best_model_name]
+        best_model_instance = models_to_evaluate[best_model_name]
         best_model_params = best_model_metrics['best_params']
+        best_model = best_model_metrics['best_model']
         final_scores=pd.DataFrame(model_performance_report)
         print(final_scores)
         print(final_scores.T)
 
-        joblib.dump(best_model_name, os.path.join(self.config.root_dir, self.config.model_name))
+        logger.info("Saving the model to file {}/{}".format(self.config.root_dir, self.config.model_name))
+        joblib.dump(best_model, os.path.join(self.config.root_dir, self.config.model_name))
 

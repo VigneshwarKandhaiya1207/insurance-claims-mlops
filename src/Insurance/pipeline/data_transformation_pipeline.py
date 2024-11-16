@@ -11,7 +11,7 @@ class DataTransformationTrainingPipeline:
     def initiate_data_transformation(self):
         try:
             with open("artifacts/datavalidation/status.txt", "r") as status_check:
-                status=status_check.read().split(":")[-1]
+                status=status_check.read().split(":")[-1].strip()
                 if status=="True":
                     config=ConfigurationManager()
                     data_transformation_config=config.get_data_transformation_config()
